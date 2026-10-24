@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#faf7f2">
+<title>RD-2 | 푸시팝 복약 알리미</title>
+<style>
+:root{font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;color:#393634;background:#faf7f2}
+*{box-sizing:border-box}body{margin:0;padding:24px 16px 60px}
+main{max-width:440px;margin:auto}.top{text-align:center;margin-bottom:16px}
+.kicker{display:inline-block;border-radius:50px;background:#dff8ec;color:#22664b;padding:7px 13px;font-size:12px;font-weight:750}
+.serial{font:700 11px ui-monospace,monospace;letter-spacing:2px;color:#847b76;margin-top:9px}
+.card{background:white;border:1px solid #f0eae4;border-radius:25px;padding:24px 21px;margin-bottom:18px;box-shadow:0 12px 30px #6354480d}
+h1{font-size:30px;letter-spacing:-1.5px;line-height:1.3;margin:0}h1 em{font-style:normal;color:#ed5693}
+.subtitle{font-size:14px;color:#746d69;margin:8px 0 12px}.name{display:inline-block;font-size:11px;color:#69615e;background:#f7f5f2;padding:7px 9px;border-radius:8px}
+.intro{text-align:center}.hint{background:#fff0f5;border:1px solid #ffe0eb;border-radius:15px;padding:12px;margin:20px 0 14px;color:#be4074;font-size:13px;font-weight:700;text-align:center}
+.scene{border-radius:20px;border:1px solid #f1e9e0;background:linear-gradient(#f8faf9,#fffaf2);padding:14px 8px 18px;text-align:center;overflow:hidden}
+.art{width:260px;height:345px;position:relative;margin:0 auto}
+.art svg{width:100%;height:100%}.buttons{position:absolute;top:46.8%;left:25%;width:50%;display:flex;justify-content:space-between;align-items:center}
+.pop{position:relative;border:0;border-radius:50%;width:27px;height:27px;min-width:27px;cursor:pointer;touch-action:manipulation;transition:transform .2s,background .2s,box-shadow .2s;background:linear-gradient(140deg,#ffdae5,#f48fac);box-shadow:0 5px 5px #ae537044,inset 2px 2px 3px #fff9,inset -2px -3px 3px #9d476644;outline-offset:3px}
+.pop:before{content:"";position:absolute;width:9px;height:6px;background:#fff8;border-radius:50%;top:5px;left:6px;transform:rotate(-25deg)}
+.pop:focus-visible{outline:3px solid #397a64}.pop.pressed{cursor:default;transform:scale(.86) translateY(2px);background:linear-gradient(135deg,#bb687f,#e6a2b5);box-shadow:inset 3px 4px 5px #713c56aa,inset -2px -2px 3px #fff9}
+.pop.pressed:before{display:none}.pop.pressed:after{content:"✓";color:#6d3146;font-weight:900;font-size:14px}
+.num{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:#927f81;pointer-events:none}.pop.pressed .num{color:#22664b}
+.pill{position:absolute;z-index:5;width:13px;height:20px;border-radius:8px;background:linear-gradient(#58c7e6 0 50%,#f16691 50%);border:1px solid white;box-shadow:0 2px 5px #0002;animation:drop .9s ease-in forwards;pointer-events:none}
+@keyframes drop{0%{opacity:1;transform:translateY(0) rotate(0)}80%{opacity:1}100%{opacity:0;transform:translateY(100px) rotate(32deg)}}
+.status{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 auto;max-width:310px}
+.count{background:#fff;border:1px solid #f0eae4;border-radius:12px;padding:9px 12px;font-size:12px;font-weight:700}
+.count strong{color:#e74c88}button.reset{border:0;border-radius:12px;background:#ece9e7;color:#514a46;padding:10px 13px;font-size:12px;font-weight:700;cursor:pointer}
+.complete{color:#237452;font-size:12px;font-weight:750;margin:14px 0 0;min-height:18px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
+.feature{background:#faf8f6;border-radius:12px;text-align:center;padding:13px 4px;font-size:11px;font-weight:700}.feature .symbol{display:block;font-size:21px;margin-bottom:7px}
+h2{text-align:center;font-size:18px;letter-spacing:-.6px;margin:0 0 7px}.small{text-align:center;font-size:12px;color:#857d77;margin:0 0 17px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.step{text-align:center;border-radius:14px;padding:15px 7px;background:#fff1f5;font-size:11px}.step:nth-child(2){background:#fff7e7}.step:nth-child(3){background:#ecf8f1}
+.step b{display:block;font-size:13px;margin:7px 0}.step .index{font-weight:900;color:#d35a85}
+.points{display:grid;gap:10px}.point{border-radius:14px;background:#faf9f7;padding:13px 14px;display:flex;gap:12px;align-items:start;font-size:12px;line-height:1.6}.point .symbol{font-size:22px}.point b{font-size:13px}.point p{margin:2px 0 0;color:#746d68}
+.tags{text-align:center;font-size:11px;color:#597866;margin-top:14px}
+.ending{text-align:center;background:linear-gradient(145deg,#373432,#252321);color:white}
+.ending h2{line-height:1.6}.ending p{font-size:12px;color:#ded8d3;line-height:1.8}.credit{border-top:1px solid #ffffff30;margin-top:20px;padding-top:16px;font-size:12px;color:#f3e8e7}
+footer{text-align:center;color:#aaa09a;font-size:10px}
+@media(max-width:360px){body{padding-left:9px;padding-right:9px}.card{padding:19px 13px}.art{transform:scale(.94);margin:-9px auto}h1{font-size:27px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<main>
+<header class="top"><span class="kicker">✧ 2026 대한민국 학생발명전시회</span><div class="serial">RD-2 | INVENTION SHOWCASE</div></header>
+<section class="card">
+<div class="intro"><h1>톡! 누르면 약이 <em>쏙!</em></h1><p class="subtitle">눌린 버튼이 알려주는 복약 기록</p><span class="name">푸시팝 용기 탄성을 이용한 물통 결합형 복약 알리미</span></div>
+<div class="hint">☝ 분홍색 원형 버튼을 톡! 눌러보세요.</div>
+<div class="scene">
+<div class="art" id="art">
+<svg viewBox="0 0 260 345" aria-label="꽃무늬 푸시팝 밴드가 부착된 텀블러 일러스트" role="img">
+<defs>
+<linearGradient id="bottle" x1="0" x2="1"><stop stop-color="#cbe6f6"/><stop offset=".38" stop-color="#f0faff"/><stop offset="1" stop-color="#b4d9ed"/></linearGradient>
+<linearGradient id="band" x1="0" x2="1"><stop stop-color="#fff3f4"/><stop offset=".5" stop-color="#ffe1e7"/><stop offset="1" stop-color="#f7bfcf"/></linearGradient>
+<linearGradient id="cap" x1="0" x2="1"><stop stop-color="#8796a9"/><stop offset=".5" stop-color="#c5d0db"/><stop offset="1" stop-color="#718096"/></linearGradient>
+<pattern id="flowers" width="23" height="23" patternUnits="userSpaceOnUse">
+<circle cx="11" cy="11" r="2" fill="#d7a56d"/><circle cx="11" cy="6" r="3" fill="#f6c2cf"/><circle cx="16" cy="11" r="3" fill="#f5d7d5"/><circle cx="11" cy="16" r="3" fill="#f6c2cf"/><circle cx="6" cy="11" r="3" fill="#f5d7d5"/><path d="M2 22q3-8 8-5" stroke="#a2bcaa" stroke-width="1.5" fill="none"/>
+</pattern>
+<filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity=".13"/></filter>
+</defs>
+<ellipse cx="130" cy="326" rx="69" ry="9" fill="#bdb6b0" opacity=".3"/>
+<rect x="75" y="51" width="110" height="264" rx="22" fill="url(#bottle)" stroke="#b4cbd8" stroke-width="1.5"/>
+<path d="M90 65Q87 195 90 299" stroke="white" stroke-width="5" opacity=".7" stroke-linecap="round"/>
+<rect x="81" y="30" width="98" height="23" rx="7" fill="url(#cap)"/>
+<rect x="101" y="19" width="58" height="13" rx="5" fill="#75879e"/>
+<g filter="url(#shadow)"><rect x="65" y="119" width="130" height="133" rx="15" fill="url(#band)" stroke="#f5a5bd" stroke-width="1.5"/><rect x="65" y="119" width="130" height="133" rx="15" fill="url(#flowers)" opacity=".55"/></g>
+<path d="M68 128h124M68 243h124" stroke="#f5a5bd" stroke-width="1" opacity=".7"/>
+<g fill="#a34867" opacity=".7"><rect x="71" y="222" width="17" height="4" rx="2"/><rect x="96" y="222" width="17" height="4" rx="2"/><rect x="121" y="222" width="17" height="4" rx="2"/><rect x="146" y="222" width="17" height="4" rx="2"/><rect x="171" y="222" width="17" height="4" rx="2"/></g>
+</svg>
+<div class="buttons" id="buttons"></div>
+</div>
+<div class="status"><div class="count">배출된 알약: <strong id="count">0</strong> / 5</div><button type="button" class="reset" id="reset">↻ 다시 체험하기</button></div>
+<div id="complete" class="complete" aria-live="polite"></div>
+</div>
+<div class="features"><div class="feature"><span class="symbol">☝️</span>원터치 배출</div><div class="feature"><span class="symbol">👁️</span>시각·촉각 확인</div><div class="feature"><span class="symbol">⚡</span>무전력 작동</div></div>
+</section>
+<section class="card"><h2>약 보관부터 배출 확인까지, 버튼 하나로!</h2><p class="small">원터치 동작으로 이어지는 3단계 복약 보조</p>
+<div class="steps"><div class="step"><span class="index">01</span><b>보관</b>푸시팝 공간에 알약 보관</div><div class="step"><span class="index">02</span><b>배출</b>원형 버튼 눌러 약 배출</div><div class="step"><span class="index">03</span><b>확인</b>오목한 상태로 배출 확인</div></div></section>
+<section class="card"><h2>작은 버튼 하나에 담긴 아이디어</h2><div class="points">
+<div class="point"><span class="symbol">☝️</span><div><b>원터치 배출</b><p>버튼을 누르는 단 한 번의 동작으로 알약이 배출됩니다.</p></div></div>
+<div class="point"><span class="symbol">👀</span><div><b>직관적인 배출 확인</b><p>눌린 버튼의 오목한 형태를 눈과 손끝으로 구분할 수 있습니다.</p></div></div>
+<div class="point"><span class="symbol">💧</span><div><b>물통과 함께 언제나</b><p>일상적인 텀블러·물통과 결합하여 약과 물을 함께 휴대할 수 있도록 설계했습니다.</p></div></div>
+</div><div class="tags">#무전력　 #직관적인 확인　 #물통 결합</div></section>
+<section class="card ending"><h2>“복약의 작은 불편함을,<br>일상의 작은 아이디어로.”</h2><p>전자장치 없이 작동하는 푸시팝 구조를 통해 약 배출 여부를 쉽게 확인하고, 일상 속 복약 관리를 돕고자 합니다.</p><div class="credit">RD-2 | 명신여자고등학교 10520 차민경<br>2026 대한민국 학생발명전시회 출품작</div></section>
+<footer>© 2026 Interactive Invention Showcase</footer>
+</main>
+<script>
+(()=>{
+const states=[false,false,false,false,false];
+const holder=document.getElementById('buttons'),art=document.getElementById('art'),count=document.getElementById('count'),complete=document.getElementById('complete');
+function update(){count.textContent=states.filter(Boolean).length;complete.textContent=states.every(Boolean)?'✓ 5개 모두 배출 완료! 오목해진 버튼으로 확인하세요.':''}
+states.forEach((_,i)=>{const btn=document.createElement('button');btn.type='button';btn.className='pop';btn.setAttribute('aria-label',`${i+1}번째 푸시팝 버튼 누르기`);const num=document.createElement('span');num.className='num';num.textContent=i+1;btn.appendChild(num);btn.addEventListener('click',()=>{if(states[i])return;states[i]=true;btn.classList.add('pressed');btn.setAttribute('aria-label',`${i+1}번째 버튼 배출 완료`);num.textContent='✓';const pill=document.createElement('span');pill.className='pill';pill.style.left=`${26.8+i*9.6}%`;pill.style.top='65%';art.appendChild(pill);pill.addEventListener('animationend',()=>pill.remove(),{once:true});update()});holder.appendChild(btn)});
+document.getElementById('reset').addEventListener('click',()=>{states.fill(false);holder.querySelectorAll('.pop').forEach((b,i)=>{b.classList.remove('pressed');b.setAttribute('aria-label',`${i+1}번째 푸시팝 버튼 누르기`);b.querySelector('.num').textContent=i+1});art.querySelectorAll('.pill').forEach(p=>p.remove());update()});
+})();
+</script>
+</body></html>
